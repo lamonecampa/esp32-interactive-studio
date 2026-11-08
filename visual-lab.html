@@ -24,7 +24,7 @@
 if(!window.Blockly){document.getElementById('status').textContent='Blockly gagal dimuat. Periksa koneksi internet/CDN.';throw new Error('Blockly CDN unavailable');}
 const defs=[
 {type:'esp32_setup',message0:'when ESP32 starts (setup)',message1:'do %1',args1:[{type:'input_statement',name:'DO'}],colour:'#dca52f',tooltip:'Dijalankan sekali saat ESP32 mulai.'},
-{type:'esp32_loop',message0:'forever (loop)',message1:'do %1',args1:[{type:'input_statement',name:'DO'}],colour:'#dca52f,',tooltip:'Dijalankan berulang selama board aktif.'},
+{type:'esp32_loop',message0:'forever (loop)',message1:'do %1',args1:[{type:'input_statement',name:'DO'}],colour:'#dca52f',tooltip:'Dijalankan berulang selama board aktif.'},
 {type:'esp32_delay',message0:'wait %1 milliseconds',args0:[{type:'input_value',name:'MS',check:'Number'}],previousStatement:null,nextStatement:null,colour:'#dca52f'},
 {type:'esp32_repeat',message0:'repeat %1 times',args0:[{type:'input_value',name:'TIMES',check:'Number'}],message1:'do %1',args1:[{type:'input_statement',name:'DO'}],previousStatement:null,nextStatement:null,colour:'#dca52f'},
 {type:'esp32_if',message0:'if %1',args0:[{type:'input_value',name:'COND',check:'Boolean'}],message1:'then %1',args1:[{type:'input_statement',name:'DO'}],message2:'else %1',args2:[{type:'input_statement',name:'ELSE'}],previousStatement:null,nextStatement:null,colour:'#9b65c9'},
