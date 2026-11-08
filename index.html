@@ -53,22 +53,22 @@ const $=id=>document.getElementById(id);
 
 function visualEscape(s){return String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function buildVisualProgram(lesson){
- const lines=lesson.code.split('\\n').map(x=>x.trim()).filter(Boolean);
+ const lines=lesson.code.split('\n').map(x=>x.trim()).filter(Boolean);
  const blocks=[], add=(type,title,desc,code)=>blocks.push({type,title,desc,code});
  add('event','Saat board mulai','Jalankan persiapan satu kali (setup).','setup()');
- if(/Serial\\.begin/.test(lesson.code)) add('action','Buka komunikasi serial','Siapkan kanal pesan untuk melihat status program.','Serial.begin(...)');
+ if(/Serial\.begin/.test(lesson.code)) add('action','Buka komunikasi serial','Siapkan kanal pesan untuk melihat status program.','Serial.begin(...)');
  if(/pinMode/.test(lesson.code)) add('action','Atur mode pin','Tentukan pin sebagai input atau output.','pinMode(...)');
  if(/analogRead|digitalRead|readTemperature|readHumidity/.test(lesson.code)) add('data','Baca input / sensor','Ambil nilai dari tombol, ADC, atau sensor.','read...');
  if(/int |float |bool |String |const /.test(lesson.code)) add('data','Simpan nilai','Gunakan variabel untuk menyimpan pin, data, dan ambang.','variable = value');
- if(/if\\s*\\(/.test(lesson.code)) add('logic','Periksa kondisi','Bandingkan nilai untuk menentukan cabang program.','if (condition)');
+ if(/if\s*\(/.test(lesson.code)) add('logic','Periksa kondisi','Bandingkan nilai untuk menentukan cabang program.','if (condition)');
  if(/else/.test(lesson.code)) add('logic','Jika tidak terpenuhi','Jalankan alternatif ketika kondisi bernilai false.','else');
- if(/for\\s*\\(/.test(lesson.code)) add('control','Ulangi sejumlah langkah','Loop terhitung untuk mengubah nilai secara bertahap.','for (...)');
- if(/while\\s*\\(/.test(lesson.code)) add('control','Tunggu sampai kondisi berubah','Ulangi pemeriksaan selama syarat masih terpenuhi.','while (...)');
- if(/millis\\s*\\(/.test(lesson.code)) add('control','Cek waktu tanpa blocking','Bandingkan waktu sekarang dengan waktu sebelumnya.','millis()');
+ if(/for\s*\(/.test(lesson.code)) add('control','Ulangi sejumlah langkah','Loop terhitung untuk mengubah nilai secara bertahap.','for (...)');
+ if(/while\s*\(/.test(lesson.code)) add('control','Tunggu sampai kondisi berubah','Ulangi pemeriksaan selama syarat masih terpenuhi.','while (...)');
+ if(/millis\s*\(/.test(lesson.code)) add('control','Cek waktu tanpa blocking','Bandingkan waktu sekarang dengan waktu sebelumnya.','millis()');
  if(/digitalWrite|ledcWrite/.test(lesson.code)) add('action','Kendalikan output','Atur keadaan GPIO atau duty cycle PWM.','digitalWrite / ledcWrite');
  if(/WiFi|HTTP|WebServer|mqtt|publish|subscribe/i.test(lesson.code)) add('action','Komunikasi jaringan','Hubungkan perangkat, layani request, atau kirim pesan.','Wi-Fi / HTTP / MQTT');
- if(/Serial\\.print/.test(lesson.code)) add('action','Tampilkan informasi','Kirim nilai atau status ke Serial Monitor.','Serial.print(ln)');
- if(/delay\\s*\\(/.test(lesson.code)) add('control','Tunggu interval','Hentikan sementara alur sesuai durasi yang ditentukan.','delay(...)');
+ if(/Serial\.print/.test(lesson.code)) add('action','Tampilkan informasi','Kirim nilai atau status ke Serial Monitor.','Serial.print(ln)');
+ if(/delay\s*\(/.test(lesson.code)) add('control','Tunggu interval','Hentikan sementara alur sesuai durasi yang ditentukan.','delay(...)');
  add('control','Ulangi proses','Setelah satu putaran selesai, loop dijalankan kembali.','loop()');
  const root=$('visualProgram');
  root.innerHTML=blocks.map((b,i)=>'<div class="vpl-block vpl-'+b.type+'"><b>'+String(i+1).padStart(2,'0')+'. '+visualEscape(b.title)+'</b><small>'+visualEscape(b.desc)+'</small><code>'+visualEscape(b.code)+'</code></div>').join('');
